@@ -148,7 +148,15 @@ end
 % convert date to numerical value for matlab plotting
 sond_plotDate = datenum(date);
 
+%Side-by-side display of profile
+figure
+sideProfile = plot(0,0);
+hold on
+sideProfPts = scatter(0,0);
+
 %showProfileFcn generates profile of point clicked on TEC graph
+figure
+sondFig = gcf;
 sondrestromPlot = plot(sond_plotDate, sond_mmTEC);
 
 set(sondrestromPlot,'HitTest','off')
@@ -164,7 +172,16 @@ t.Position = [0.72 0.78 0.15 0.09];
 hold on
 pnt = scatter(sond_plotDate(1),sond_mmTEC(1),'HitTest','off');
 vert = xline(sond_plotDate(1),'LineStyle',"--",'HitTest','off');
-set(gcf, 'WindowButtonMotionFcn', {@hoverShowCoord, t, pnt, vert, date, sond_plotDate, sond_mmTEC});
+% set(sondFig, 'WindowButtonMotionFcn', {@hoverShowCoord, t, pnt, vert,...
+%     date, sond_plotDate, sond_mmTEC})
+
+%set(sondFig, 'WindowButtonMotionFcn', {@hoverShowProf, sideProfile, sond_plotDate, date, profSegs,...
+%    GDALT, NE})
+set(sondFig, 'WindowButtonMotionFcn', {@hover, sideProfile, sideProfPts, profSegs, GDALT, NE,...
+    t, pnt, vert, date, sond_plotDate, sond_mmTEC})
+
+
+
 
 % hold on
 

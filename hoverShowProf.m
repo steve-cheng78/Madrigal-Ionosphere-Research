@@ -1,19 +1,12 @@
-% Generates profile of points clicked on TEC graph
+function hoverShowProf (object, eventdata, sideProfile, sideProfPts, xData, date, profSegs, GDALT, NE)
 
-function showProfileFcn(hObj, event, profTimes, profSegs, GDALT, NE)
-% Inputs:
-%  hObj (unused) the axes
-%  event: info about mouse click
-% OUTPUT
-%  none
-pt = event.IntersectionPoint;
-profileTime = (pt(1) - datenum(1970,1,1))*86400;
-disp("profileTime: ")
-disp(profileTime)
-% ind = find(profTimes == profileTime)
-ind = find(abs(profTimes - profileTime) == min(abs(profTimes - profileTime)));
-disp("index: ")
-disp(ind)
+C = get (gca, 'CurrentPoint');
+
+ind = find(abs(floor(C(1,1)) - xData) == min(abs(floor(C(1,1)) - xData)));
+
+
+% disp("index: ")
+% disp(ind)
 
 segBegin = profSegs(ind,1);
 segEnd = profSegs(ind,2);
@@ -63,14 +56,16 @@ z0 = x(I);
 % TEC(i) = trapz(z,N);
 
 % date(i) = datestr(times(i)/86400 + datenum(1970,1,1), 'dd-mmm-yyyy HH:MM:SS');
-figure
-plot(N,z)
+% figure
+% plot(N,z)
+sideProfile.XData = N;
+sideProfile.YData = z;
+sideProfPts.XData = sortedNE(:,2);
+sideProfPts.YData = sortedNE(:,1);
 xlabel('Electron density (Ne in m-3)'), ylabel('Altitude (km)')
-timeStr = datestr(pt(1), 'dd-mmm-yyyy HH:MM:SS');
+timeStr = date(ind);%datestr(pt(1), 'dd-mmm-yyyy HH:MM:SS');
 timeStrtxt = string(timeStr);
 title('Profile w/ Chapman Fit at ' + timeStrtxt)
 
-hold on
-scatter(sortedNE(:,2),sortedNE(:,1))
 
 end % <--- optional if this is embedded into a function
