@@ -89,7 +89,7 @@ sideProfPts = scatter(0,0);
 
 figure
 fig = gcf;
-ax = gca;
+fig = gca
 plt = plot(profTimes, mmTEC);
 
 %showProfileFcn generates profile of point clicked on TEC graph
@@ -110,7 +110,7 @@ vert = xline(profTimes(1), 'LineStyle', "--", 'HitTest', 'off');
 
 %set(fig, 'WindowButtonMotionFcn', {@hoverShowProf, sideProfile, sond_plotDate, date, profSegs,...
 %    GDALT, NE})
-set(fig, 'WindowButtonMotionFcn', {@hover, ax, sideProfile, sideProfPts, T,...
+set(fig, 'WindowButtonMotionFcn', {@hover, sideProfile, sideProfPts, T,...
     txt, pnt, vert, profTimes, mmTEC})
 
 

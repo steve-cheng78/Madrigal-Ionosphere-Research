@@ -1,6 +1,6 @@
-function hover (object, eventdata, sideProfile, sideProfPts, T, t, pnt, vert, date, xData, yData)
+function hover (object, eventdata, ax, sideProfile, sideProfPts, T, txt, pnt, vert, xData, yData)
 
-hoverShowCoord (object, eventdata, t, pnt, vert, date, xData, yData)
-hoverShowProf (object, eventdata, sideProfile, sideProfPts, xData, date, T)
+hoverShowCoord (object, eventdata, ax, txt, pnt, vert, xData, yData)
+hoverShowProf (object, eventdata, ax, sideProfile, sideProfPts, xData, T)
 
 end

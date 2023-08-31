@@ -1,0 +1,37 @@
+function hoverShowProf (~, ~, sideProfile, sideProfPts, xData, date, T)
+
+C = get (gca, 'CurrentPoint');
+
+ind = find(abs(datetime(C(1,1),'ConvertFrom','posixtime') - xData) == ...
+    min(abs(datetime(C(1,1),'ConvertFrom','posixtime') - xData)));
+
+z = 100:10:500;
+H = 50;
+
+NE = sortrows(T(T.time == date(ind),:), "gdalt");
+
+[x, ia] = unique(NE.gdalt);
+NE = NE(ia,:);
+% NOTE: only takes first element of unique altitude data.
+% previous code averaged same altitude data.
+
+[Nmax, I] = max(NE.nel);
+z0 = x(I);
+[estimated_guess, N] = ChapmanFit(NE.nel, x, z, z0, Nmax, H);
+
+% TEC(i) = trapz(z,N);
+
+% date(i) = datestr(times(i)/86400 + datenum(1970,1,1), 'dd-mmm-yyyy HH:MM:SS');
+% figure
+% plot(N,z)
+sideProfile.XData = N;
+sideProfile.YData = z;
+sideProfPts.XData = NE(:,2);
+sideProfPts.YData = NE(:,1);
+xlabel('Electron density (Ne in m-3)'), ylabel('Altitude (km)')
+timeStr = date(ind);%datestr(pt(1), 'dd-mmm-yyyy HH:MM:SS');
+timeStrtxt = string(timeStr);
+title('Profile w/ Chapman Fit at ' + timeStrtxt)
+
+
+end % <--- optional if this is embedded into a function
