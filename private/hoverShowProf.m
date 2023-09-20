@@ -23,10 +23,11 @@ sideProfile.XData = N;
 sideProfile.YData = z;
 sideProfPts.XData = NE.nel;
 sideProfPts.YData = NE.gdalt;
-xlabel('Electron density (Ne in m-3)'), ylabel('Altitude (km)')
+sideProfile.Parent.XLabel.String = 'Electron density (Ne in m-3)';
+sideProfile.Parent.YLabel.String = 'Altitude (km)';
 timeStr = xData(ind);%datestr(pt(1), 'dd-mmm-yyyy HH:MM:SS');
 timeStrtxt = string(timeStr);
-title('Profile w/ Chapman Fit at ' + timeStrtxt)
+sideProfile.Parent.Title.String = 'Profile w/ Chapman Fit at ' + timeStrtxt;
 
 
 end % <--- optional if this is embedded into a function

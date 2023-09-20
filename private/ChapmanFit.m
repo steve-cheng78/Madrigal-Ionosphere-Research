@@ -24,7 +24,7 @@ start = [z0 Nmax H];
 %start = [-2; 1; 4; 1; 2];
 %options = optimset('TolX',0.1);
 % opt = optimset(MaxFunEvals=1e6, MaxIter=1e3);
-opt = optimset();
+opt = optimset('TolFun', 1.0e+10);
 estimated_guess = fminsearch(@(guess) ChapmanErr(guess,x,v),start, opt);
 
 
